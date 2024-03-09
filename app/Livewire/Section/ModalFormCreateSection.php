@@ -3,6 +3,7 @@
 namespace App\Livewire\Section;
 
 use App\Livewire\Components\Alert;
+use App\Livewire\Section\BoxTableSection;
 use App\Services\SectionService;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -37,6 +38,8 @@ class ModalFormCreateSection extends Component
 
     public function doChangeBoxHidden()
     {
+        $this->locateTumb = '';
+
         $this->boxHidden = !$this->boxHidden;
     }
 
@@ -49,9 +52,10 @@ class ModalFormCreateSection extends Component
 
             Log::info('do create section success');
 
-            session()->put('alertMessage', 'Section berhasil di buat.');
+            session()->put('alertMessage', "Section berhasil di buat.");
 
             $this->dispatch('do-change-box-hidden')->self();
+            $this->dispatch('do-change-box-hidden')->to(BoxTableSection::class);
             $this->dispatch('do-change-box-hidden')->to(Alert::class);
         } catch (\Throwable $th) {
             Log::error('do create section failed', [

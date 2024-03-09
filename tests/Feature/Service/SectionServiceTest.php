@@ -2,8 +2,10 @@
 
 namespace Tests\Feature\Service;
 
+use App\Models\Section;
 use App\Models\User;
 use App\Services\SectionService;
+use Database\Seeders\SectionSeeder;
 use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -50,5 +52,29 @@ class SectionServiceTest extends TestCase
             'body' => null,
             'data' => null
         ]);
+    }
+
+
+    public function test_get_all_success()
+    {
+        $this->seed(SectionSeeder::class);
+        $this->seed(SectionSeeder::class);
+        $this->seed(SectionSeeder::class);
+        $this->seed(SectionSeeder::class);
+        $this->seed(SectionSeeder::class);
+
+        $response = $this->sectionService->getAll();
+
+        $this->assertIsObject($response);
+
+        $getSection = Section::select('id', 'locate_tumb', 'body', 'data', 'created_at', 'updated_at')
+            ->orderBy('created_at')
+            ->get();
+
+        $getSection = collect($getSection);
+
+        $this->assertEquals($response, $getSection);
+        $this->assertEquals($response->count(), $getSection->count());
+        $this->assertEquals($response->count(), 5);
     }
 }

@@ -3,15 +3,16 @@
 namespace App\Services;
 
 use App\Models\Section;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
 class SectionService
 {
-    public function __construct()
+    public function setUp()
     {
         Log::withContext([
-            // 'user_id' => auth()->user()->id,
-            // 'email' => auth()->user()->email,
+            'user_id' => auth()->user()->id,
+            'email' => auth()->user()->email,
             'class' => SectionService::class,
         ]);
     }
@@ -19,6 +20,8 @@ class SectionService
     // create
     public function create(?string $locateTumb): void
     {
+        self::setUp();
+
         try {
             $section = new Section();
             $section->locate_tumb = $locateTumb;
@@ -34,6 +37,29 @@ class SectionService
             Log::error('create section failed', [
                 'exeption' => $th->getMessage()
             ]);
+        }
+    }
+
+
+    // read
+    public function getAll(): Collection
+    {
+        self::setUp();
+
+        try {
+            $getSection = Section::select('id', 'locate_tumb', 'body', 'data', 'created_at', 'updated_at')
+                ->orderBy('created_at')
+                ->get();
+
+            Log::info('get all section successs');
+
+            return collect($getSection);
+        } catch (\Throwable $th) {
+            Log::error('get all section failed', [
+                'exeption' => $th->getMessage()
+            ]);
+
+            return collect([]);
         }
     }
 }

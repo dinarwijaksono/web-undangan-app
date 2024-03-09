@@ -1,4 +1,4 @@
-<div class="box box-success">
+<div class="box box-success" @style(['display: none;' => $boxHidden])>
     <div class="box-header with-border">
         <h3 class="box-title" style="margin-bottom: 8px;">Section List</h3>
 
@@ -12,24 +12,27 @@
             <tr>
                 <th style="width: 10px"></th>
                 <th>Location</th>
-                <th>Dibuat</th>
+                <th class="text-center">Dibuat</th>
                 <th></th>
             </tr>
-            <tr>
-                <td class="text-center">1</td>
-                <td>Update software</td>
-                <td>12 maret</td>
-                <td style="width: 200px">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <button class="btn btn-block btn-primary">Edit</button>
+
+            @foreach ($sectionAll as $section)
+                <tr>
+                    <td class="text-center">{{ $loop->iteration }}</td>
+                    <td>{{ $section->locate_tumb }}</td>
+                    <td class="text-center">{{ date('d M Y', $section->created_at / 1000) }}</td>
+                    <td style="width: 200px">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button class="btn btn-block btn-primary">Edit</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="btn btn-block btn-danger">Hapus</button>
+                            </div>
                         </div>
-                        <div class="col-xs-6">
-                            <button class="btn btn-block btn-danger">Hapus</button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            @endforeach
 
         </table>
 
