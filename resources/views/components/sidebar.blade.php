@@ -14,7 +14,11 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="treeview">
-                <a href="/"><span>Dashboard</span></a>
+                <a href="/dashboard"><span>Dashboard</span></a>
+            </li>
+
+            <li class="treeview">
+                <a href="/section"><span>Section</span></a>
             </li>
 
         </ul>
