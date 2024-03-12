@@ -25,4 +25,17 @@ class SectionController extends Controller
 
         return view('section.index');
     }
+
+    public function show(?int $sectionId)
+    {
+        self::setUp();
+
+        Log::info('/section success', [
+            'class' => SectionController::class
+        ]);
+
+        $data = ['sectionId' => $sectionId];
+
+        return view('section.show', $data);
+    }
 }

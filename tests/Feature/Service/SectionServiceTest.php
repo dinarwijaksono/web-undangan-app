@@ -11,6 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use stdClass;
 use Tests\TestCase;
 
 class SectionServiceTest extends TestCase
@@ -54,6 +55,25 @@ class SectionServiceTest extends TestCase
         ]);
     }
 
+    public function test_get_by_id_success()
+    {
+        $this->seed(SectionSeeder::class);
+
+        $getSection = Section::select('id', 'locate_tumb', 'body', 'data', 'created_at', 'updated_at')
+            ->first();
+
+        $response = $this->sectionService->getById($getSection->id);
+
+        $this->assertEquals($getSection, $response);
+        $this->assertEquals($getSection->locate_tumb, $response->locate_tumb);
+    }
+
+    public function test_get_by_id_is_empty()
+    {
+        $response = $this->sectionService->getById(1234);
+
+        $this->assertEquals($response, new stdClass());
+    }
 
     public function test_get_all_success()
     {
@@ -68,7 +88,7 @@ class SectionServiceTest extends TestCase
         $this->assertIsObject($response);
 
         $getSection = Section::select('id', 'locate_tumb', 'body', 'data', 'created_at', 'updated_at')
-            ->orderBy('created_at')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $getSection = collect($getSection);

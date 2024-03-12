@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Section;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use stdClass;
 
 class SectionService
 {
@@ -42,13 +43,35 @@ class SectionService
 
 
     // read
+    public function getById(int $id): object
+    {
+        self::setUp();
+
+        try {
+            $getSection = Section::select('id', 'locate_tumb', 'body', 'data', 'created_at', 'updated_at')
+                ->where('id', $id)
+                ->first();
+
+            Log::info('get section by id success');
+
+            return $getSection;
+        } catch (\Throwable $th) {
+
+            Log::error('get section by id failed', [
+                'exeption' => $th->getMessage()
+            ]);
+
+            return new stdClass();
+        }
+    }
+
     public function getAll(): Collection
     {
         self::setUp();
 
         try {
             $getSection = Section::select('id', 'locate_tumb', 'body', 'data', 'created_at', 'updated_at')
-                ->orderBy('created_at')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             Log::info('get all section successs');

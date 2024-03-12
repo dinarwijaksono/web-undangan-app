@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
 // section
 Route::get('/section', [SectionController::class, 'index'])->middleware('auth');
+
+Route::get("/show-section/{sectionId}", [SectionController::class, 'show'])->middleware('auth');
 // end seciton
 
 
