@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('template_sections', function (Blueprint $table) {
+        Schema::create('invitation_to_pages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teamplate_id');
-            $table->foreignId('section_id');
+            $table->foreignId('invitation_id');
+            $table->foreignId('page_id');
             $table->bigInteger('created_at');
             $table->bigInteger('updated_at');
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('template_sections');
+        Schema::dropIfExists('invitation_to_pages');
     }
 };
