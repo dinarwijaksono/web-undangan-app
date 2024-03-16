@@ -97,4 +97,42 @@ class SectionServiceTest extends TestCase
         $this->assertEquals($response->count(), $getSection->count());
         $this->assertEquals($response->count(), 5);
     }
+
+
+    public function test_update_body_success()
+    {
+        $this->seed(SectionSeeder::class);
+        $getSection = Section::select('id', 'locate_tumb', 'body', 'data', 'created_at', 'updated_at')
+            ->first();
+
+        $body = [
+            [
+                'tag_name' => 'paragraph',
+                'tag' => 'p',
+                'tag_class' => 'p-2 m-2',
+                'tag_style' => 'display: block;',
+                'tag_content' => 'lorem ipsum dolar is amet'
+            ],
+            [
+                'tag_name' => 'paragraph',
+                'tag' => 'p',
+                'tag_class' => 'p-2 m-2',
+                'tag_style' => 'display: block;',
+                'tag_content' => 'lorem ipsum dolar is amet'
+            ],
+        ];
+
+        $this->sectionService->updateBody($getSection->id, $body, []);
+
+        $section = Section::select('id', 'locate_tumb', 'body', 'data', 'created_at', 'updated_at')
+            ->where('id', $getSection->id)
+            ->first();
+
+        $getBody = collect(collect(json_decode($section->body))[0])->toArray();
+
+        // var_dump($getBody);
+
+        // $this->assertTrue(true);
+        $this->assertEquals($getBody, $body[0]);
+    }
 }

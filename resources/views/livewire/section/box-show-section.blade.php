@@ -5,11 +5,11 @@
 
     <div class="box-body">
 
-        data : {{ $section->data }}
+        data : {{ var_dump($section->data) }}
 
         <br>
 
-        body : {{ $section->body }}
+        body : {{ var_dump($section->body) }}
 
     </div>
 

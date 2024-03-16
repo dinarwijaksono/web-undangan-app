@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Section;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use stdClass;
 
@@ -83,6 +84,26 @@ class SectionService
             ]);
 
             return collect([]);
+        }
+    }
+
+    // update
+    public function updateBody(int $sectionId, $body, $data)
+    {
+        self::setUp();
+
+        try {
+            Section::where('id', $sectionId)->update([
+                'body' => $body,
+                'data' => $data,
+                'updated_at' => round(microtime(true) * 1000)
+            ]);
+
+            Log::info('update body section success');
+        } catch (\Throwable $th) {
+            Log::error('update body section failed', [
+                'message' => $th->getMessage()
+            ]);
         }
     }
 }

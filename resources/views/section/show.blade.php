@@ -17,37 +17,7 @@
 
             @livewire('section.box-show-section', ['sectionId' => $sectionId])
 
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Edit section</h3>
-                </div>
-
-                <div class="box-body">
-
-                    <div class="form-group">
-                        <label>Tag</label>
-                        <section class="form-control">
-                            <option value="">p</option>
-                        </section>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Text</label>
-                        <input type="text" class="form-control" placeholder="" />
-                    </div>
-
-                    <div class="form-group row">
-
-                        <div class="col-xs-10"></div>
-
-                        <div class="col-xs-2">
-                            <button class="btn btn-block btn-primary">Kirim</button>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
+            @livewire('section.form-edit-section', ['sectionId' => $sectionId])
 
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->

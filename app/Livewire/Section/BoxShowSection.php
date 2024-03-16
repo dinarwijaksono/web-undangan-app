@@ -14,7 +14,11 @@ class BoxShowSection extends Component
 
     protected $sectionService;
 
-    public function booted()
+    public $listeners = [
+        'do-update-section'   => 'render'
+    ];
+
+    public function boot()
     {
         $this->sectionService = App::make(SectionService::class);
 
