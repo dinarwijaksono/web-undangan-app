@@ -18,6 +18,10 @@
             </li>
 
             <li class="treeview">
+                <a href="/invitation"><span>Template undangan</span></a>
+            </li>
+
+            <li class="treeview">
                 <a href="/section"><span>Section</span></a>
             </li>
 
