@@ -130,9 +130,6 @@ class SectionServiceTest extends TestCase
 
         $getBody = collect(collect(json_decode($section->body))[0])->toArray();
 
-        // var_dump($getBody);
-
-        // $this->assertTrue(true);
         $this->assertEquals($getBody, $body[0]);
     }
 }
