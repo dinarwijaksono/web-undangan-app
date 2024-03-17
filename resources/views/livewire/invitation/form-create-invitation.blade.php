@@ -12,8 +12,8 @@
         <div class="form-group row">
             <div class="col-sm-9"></div>
             <div class="col-sm-3">
-                <button type="button" wire:click="doCreateInvitation" class="btn btn-success btn-block">Buat Template
-                    Undangan</button>
+                <button type="button" wire:click="doCreateInvitation" class="btn btn-success btn-block">
+                    Buat Template Undangan</button>
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Invitation;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
 class InvitationService
@@ -35,6 +36,29 @@ class InvitationService
             Log::error('create invitation success', [
                 'exeption' => $th->getMessage()
             ]);
+        }
+    }
+
+
+    // read
+    public function getAll(): Collection
+    {
+        self::boot();
+
+        try {
+            $invitation = Invitation::select('id', 'name', 'created_at', 'updated_at')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            Log::info('get all invitation success');
+
+            return collect($invitation);
+        } catch (\Throwable $th) {
+            Log::error('get all invitation failed', [
+                'exeption' => $th->getMessage()
+            ]);
+
+            return collect();
         }
     }
 }

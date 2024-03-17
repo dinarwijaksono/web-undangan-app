@@ -37,6 +37,7 @@ class FormCreateInvitation extends Component
 
             session()->put('alertMessage', 'Berhasil membuat template undangan.');
             $this->dispatch('do-change-box-hidden')->to(Alert::class);
+            $this->dispatch('do-create-invitation')->to(BoxShowAllInvitation::class);
 
             Log::info('do create invitation success');
         } catch (\Throwable $th) {

@@ -7,7 +7,7 @@
         <section class="content-header">
             <h1>Undangan</h1>
             <ol class="breadcrumb">
-                <li><a href="/section" class="active"></i> Section</a></li>
+                <li><a href="/invitation" class="active"></i> Invitation</a></li>
             </ol>
         </section>
 
@@ -18,12 +18,7 @@
 
             @livewire('invitation.form-create-invitation')
 
-            <div class="box box-success">
-                <div class="box-header">
-                    <h4>List template</h4>
-                </div>
-
-            </div>
+            @livewire('invitation.box-show-all-invitation')
 
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->

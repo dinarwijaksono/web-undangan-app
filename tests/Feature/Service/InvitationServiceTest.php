@@ -4,6 +4,7 @@ namespace Tests\Feature\Service;
 
 use App\Models\User;
 use App\Services\InvitationService;
+use Database\Seeders\InvitationSeeder;
 use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -33,5 +34,17 @@ class InvitationServiceTest extends TestCase
         $this->assertDatabaseHas('invitations', [
             'name' => $name
         ]);
+    }
+
+    public function test_get_all_success()
+    {
+        $this->seed(InvitationSeeder::class);
+        $this->seed(InvitationSeeder::class);
+        $this->seed(InvitationSeeder::class);
+
+        $response = $this->invitationService->getAll();
+
+        $this->assertEquals($response->count(), 3);
+        $this->assertDatabaseCount('invitations', 3);
     }
 }
