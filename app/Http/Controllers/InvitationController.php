@@ -25,4 +25,18 @@ class InvitationController extends Controller
 
         return view('invitation.index');
     }
+
+
+    public function show(int $invitationId)
+    {
+        self::boot();
+
+        Log::info('/invitation success', [
+            'class' => SectionController::class
+        ]);
+
+        $data['invitationId'] = $invitationId;
+
+        return view('invitation.show-invitation', $data);
+    }
 }

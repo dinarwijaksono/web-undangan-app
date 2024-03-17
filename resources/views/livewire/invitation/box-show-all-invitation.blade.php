@@ -23,7 +23,8 @@
                         <td>{{ $key->name }}</td>
                         <td>{{ date('j F Y', $key->created_at / 1000) }}</td>
                         <td style="width: 100px;">
-                            <button class="btn btn-block btn-sm btn-success">Lihat</button>
+                            <a href="/invitation/show/{{ $key->id }}"
+                                class="btn btn-block btn-sm btn-success">Lihat</a>
                         </td>
 
                         <td style="width: 100px;">

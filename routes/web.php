@@ -39,6 +39,8 @@ Route::middleware('auth')->group(function () {
 
 // invitation
 Route::get('/invitation', [InvitationController::class, 'index'])->middleware('auth');
+
+Route::get('/invitation/show/{invitationid}', [InvitationController::class, 'show'])->middleware('auth');
 // end invitation
 
 

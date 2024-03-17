@@ -122,7 +122,7 @@ class SectionServiceTest extends TestCase
             ],
         ];
 
-        $this->sectionService->updateBody($getSection->id, $body, []);
+        $this->sectionService->updateBody($getSection->id, collect($body), collect([]));
 
         $section = Section::select('id', 'locate_tumb', 'body', 'data', 'created_at', 'updated_at')
             ->where('id', $getSection->id)

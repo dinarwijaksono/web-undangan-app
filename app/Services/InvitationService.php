@@ -3,8 +3,13 @@
 namespace App\Services;
 
 use App\Models\Invitation;
+use App\Models\InvitationToPage;
+use App\Models\Page;
+use App\Models\Section;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use stdClass;
 
 class InvitationService
 {
@@ -39,8 +44,62 @@ class InvitationService
         }
     }
 
+    public function addPage(int $templateId, int $sectionId): void
+    {
+        self::boot();
+
+        try {
+
+            $getSection = Section::select('id', 'locate_tumb', 'body', 'data')
+                ->where('id', $sectionId)
+                ->first();
+
+            $body = collect(json_decode($getSection->body));
+
+            $pageId = DB::table('pages')
+                ->insertGetId([
+                    'name' => $getSection->locate_tumb,
+                    'body' => $body,
+                    'created_at' => round(microtime(true) * 1000),
+                    'updated_at' => round(microtime(true) * 1000),
+                ]);
+
+            $invitationToPage = new InvitationToPage();
+            $invitationToPage->invitation_id = $templateId;
+            $invitationToPage->page_id = $pageId;
+            $invitationToPage->created_at = round(microtime(true) * 1000);
+            $invitationToPage->updated_at = round(microtime(true) * 1000);
+            $invitationToPage->save();
+
+            Log::info('add page success');
+        } catch (\Throwable $th) {
+            Log::error('add page failed', [
+                'exeption' => $th->getMessage()
+            ]);
+        }
+    }
+
 
     // read
+    public function getById(): object
+    {
+        self::boot();
+
+        try {
+
+            $invitation = Invitation::select('id', 'name', 'created_at', 'updated_at')
+                ->first();
+
+            Log::info('get by id success');
+
+            return $invitation;
+        } catch (\Throwable $th) {
+            Log::error('get by id failed', [
+                'exeption' => $th->getMessage()
+            ]);
+        }
+    }
+
     public function getAll(): Collection
     {
         self::boot();
